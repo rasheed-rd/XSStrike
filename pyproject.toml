@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "xsstrike"
+version = "0.1.0"
+description = ""
+authors = ["Rasheed Elsaleh <rasheed@rebelliondefense.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tld = "*"
+fuzzywuzzy = "*"
+requests = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
