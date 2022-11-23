@@ -3,8 +3,8 @@ import random
 import re
 from urllib.parse import urlparse
 
-import src.core.config
-from src.core.config import xsschecker
+import core.config
+from core.config import xsschecker
 
 
 def converter(data, url=False):
@@ -238,16 +238,16 @@ def deJSON(data):
 
 
 def getVar(name):
-    return src.core.config.globalVariables[name]
+    return core.config.globalVariables[name]
 
 def updateVar(name, data, mode=None):
     if mode:
         if mode == 'append':
-            src.core.config.globalVariables[name].append(data)
+            core.config.globalVariables[name].append(data)
         elif mode == 'add':
-            src.core.config.globalVariables[name].add(data)
+            core.config.globalVariables[name].add(data)
     else:
-        src.core.config.globalVariables[name] = data
+        core.config.globalVariables[name] = data
 
 def isBadContext(position, non_executable_contexts):
     badContext = ''

@@ -1,13 +1,13 @@
 import copy
 from urllib.parse import urlparse
 
-from src.core.colors import green, end
-from src.core.config import xsschecker
-from src.core.fuzzer import fuzzer
-from src.core.requester import requester
-from src.core.utils import getUrl, getParams
-from src.core.wafDetector import wafDetector
-from src.core.log import setup_logger
+from core.colors import green, end
+from core.config import xsschecker
+from core.fuzzer import fuzzer
+from core.requester import requester
+from core.utils import getUrl, getParams
+from core.wafDetector import wafDetector
+from core.log import setup_logger
 
 logger = setup_logger(__name__)
 

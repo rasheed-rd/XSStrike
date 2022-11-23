@@ -2,7 +2,10 @@
 
 from __future__ import print_function
 
-from src.core.colors import end, red, white, bad, info
+import os.path
+from pathlib import Path
+
+from core.colors import end, red, white, bad, info
 
 # Just a fancy ass banner
 print('''%s
@@ -23,21 +26,25 @@ import json
 import argparse
 
 # ... and configurations core lib
-import src.core.config
-import src.core.log
+import core.config
+import core.log
 
 # Import everything else required from core lib
-from src.core.config import blindPayload
-from src.core.encoders import base64
-from src.core.photon import photon
-from src.core.prompt import prompt
-from src.core.updater import updater
-from src.core.utils import extractHeaders, reader, converter
+from core.config import blindPayload
+from core.encoders import base64
+from core.photon import photon
+from core.prompt import prompt
+from core.updater import updater
+from core.utils import extractHeaders, reader, converter
 
-from src.modes.bruteforcer import bruteforcer
-from src.modes.crawl import crawl
-from src.modes.scan import scan
-from src.modes.singleFuzz import singleFuzz
+from modes.bruteforcer import bruteforcer
+from modes.crawl import crawl
+from modes.scan import scan
+from modes.singleFuzz import singleFuzz
+
+
+def get_project_root():
+    return Path(__file__).absolute().parent
 
 
 def main():
@@ -51,7 +58,7 @@ def main():
     parser.add_argument('--update', help='update',
                         dest='update', action='store_true')
     parser.add_argument('--timeout', help='timeout',
-                        dest='timeout', type=int, default=src.core.config.timeout)
+                        dest='timeout', type=int, default=core.config.timeout)
     parser.add_argument('--proxy', help='use prox(y|ies)',
                         dest='proxy', action='store_true')
     parser.add_argument('--crawl', help='crawl',
@@ -69,9 +76,9 @@ def main():
     parser.add_argument('--headers', help='add headers',
                         dest='add_headers', nargs='?', const=True)
     parser.add_argument('-t', '--threads', help='number of threads',
-                        dest='threadCount', type=int, default=src.core.config.threadCount)
+                        dest='threadCount', type=int, default=core.config.threadCount)
     parser.add_argument('-d', '--delay', help='delay between requests',
-                        dest='delay', type=int, default=src.core.config.delay)
+                        dest='delay', type=int, default=core.config.delay)
     parser.add_argument('--skip', help='don\'t ask to continue',
                         dest='skip', action='store_true')
     parser.add_argument('--skip-dom', help='skip dom checking',
@@ -79,12 +86,12 @@ def main():
     parser.add_argument('--blind', help='inject blind XSS payload while crawling',
                         dest='blindXSS', action='store_true')
     parser.add_argument('--console-log-level', help='Console logging level',
-                        dest='console_log_level', default=src.core.log.console_log_level,
-                        choices=src.core.log.log_config.keys())
+                        dest='console_log_level', default=core.log.console_log_level,
+                        choices=core.log.log_config.keys())
     parser.add_argument('--file-log-level', help='File logging level', dest='file_log_level',
-                        choices=src.core.log.log_config.keys(), default=None)
+                        choices=core.log.log_config.keys(), default=None)
     parser.add_argument('--log-file', help='Name of the file to log', dest='log_file',
-                        default=src.core.log.log_file)
+                        default=core.log.log_file)
     args = parser.parse_args()
 
     # Pull all parameter values of dict from argparse namespace into local variables of name == key
@@ -108,25 +115,25 @@ def main():
     skip = args.skip
     skipDOM = args.skipDOM
     blindXSS = args.blindXSS
-    src.core.log.console_log_level = args.console_log_level
-    src.core.log.file_log_level = args.file_log_level
-    src.core.log.log_file = args.log_file
+    core.log.console_log_level = args.console_log_level
+    core.log.file_log_level = args.file_log_level
+    core.log.log_file = args.log_file
 
-    logger = src.core.log.setup_logger()
+    logger = core.log.setup_logger()
 
-    src.core.config.globalVariables = vars(args)
+    core.config.globalVariables = vars(args)
 
     if type(args.add_headers) == bool:
         headers = extractHeaders(prompt())
     elif type(args.add_headers) == str:
         headers = extractHeaders(args.add_headers)
     else:
-        from src.core.config import headers
+        from core.config import headers
 
-    src.core.config.globalVariables['headers'] = headers
-    src.core.config.globalVariables['checkedScripts'] = set()
-    src.core.config.globalVariables['checkedForms'] = {}
-    src.core.config.globalVariables['definitions'] = json.loads('\n'.join(reader(sys.path[0] + '/db/definitions.json')))
+    core.config.globalVariables['headers'] = headers
+    core.config.globalVariables['checkedScripts'] = set()
+    core.config.globalVariables['checkedForms'] = {}
+    core.config.globalVariables['definitions'] = json.loads('\n'.join(reader(os.path.join(get_project_root(), 'db', 'definitions.json'))))
 
     if path:
         paramData = converter(target, target)
@@ -136,7 +143,7 @@ def main():
 
     if args_file:
         if args_file == 'default':
-            payloadList = src.core.config.payloads
+            payloadList = core.config.payloads
         else:
             payloadList = list(filter(None, reader(args_file)))
 
@@ -147,7 +154,7 @@ def main():
     encoding = base64 if encode and encode == 'base64' else False
 
     if not proxy:
-        src.core.config.proxies = {}
+        core.config.proxies = {}
 
     if update:  # if the user has supplied --update argument
         updater()

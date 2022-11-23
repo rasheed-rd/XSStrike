@@ -1,4 +1,4 @@
-from src.core.checker import checker
+from core.checker import checker
 
 
 def filterChecker(url, params, headers, GET, delay, occurences, timeout, encoding):

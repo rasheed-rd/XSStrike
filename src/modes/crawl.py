@@ -1,14 +1,14 @@
 import copy
 import re
 
-import src.core.config
-from src.core.colors import green, end
-from src.core.config import xsschecker
-from src.core.filterChecker import filterChecker
-from src.core.generator import generator
-from src.core.htmlParser import htmlParser
-from src.core.requester import requester
-from src.core.log import setup_logger
+import core.config
+from core.colors import green, end
+from core.config import xsschecker
+from core.filterChecker import filterChecker
+from core.generator import generator
+from core.htmlParser import htmlParser
+from core.requester import requester
+from core.log import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -26,8 +26,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                     url = scheme + '://' + host + url
                 elif re.match(r'\w', url[0]):
                     url = scheme + '://' + host + '/' + url
-                if url not in src.core.config.globalVariables['checkedForms']:
-                    src.core.config.globalVariables['checkedForms'][url] = []
+                if url not in core.config.globalVariables['checkedForms']:
+                    core.config.globalVariables['checkedForms'][url] = []
                 method = each['method']
                 GET = True if method == 'get' else False
                 inputs = each['inputs']
@@ -35,8 +35,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                 for one in inputs:
                     paramData[one['name']] = one['value']
                     for paramName in paramData.keys():
-                        if paramName not in src.core.config.globalVariables['checkedForms'][url]:
-                            src.core.config.globalVariables['checkedForms'][url].append(paramName)
+                        if paramName not in core.config.globalVariables['checkedForms'][url]:
+                            core.config.globalVariables['checkedForms'][url].append(paramName)
                             paramsCopy = copy.deepcopy(paramData)
                             paramsCopy[paramName] = xsschecker
                             response = requester(
