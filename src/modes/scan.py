@@ -2,18 +2,18 @@ import copy
 import re
 from urllib.parse import urlparse, quote, unquote
 
-from core.checker import checker
-from core.colors import end, green, que
-import core.config
-from core.config import xsschecker, minEfficiency
-from core.dom import dom
-from core.filterChecker import filterChecker
-from core.generator import generator
-from core.htmlParser import htmlParser
-from core.requester import requester
-from core.utils import getUrl, getParams, getVar
-from core.wafDetector import wafDetector
-from core.log import setup_logger
+from src.core.checker import checker
+from src.core.colors import end, green, que
+import src.core.config
+from src.core.config import xsschecker, minEfficiency
+from src.core.dom import dom
+from src.core.filterChecker import filterChecker
+from src.core.generator import generator
+from src.core.htmlParser import htmlParser
+from src.core.requester import requester
+from src.core.utils import getUrl, getParams, getVar
+from src.core.wafDetector import wafDetector
+from src.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -89,7 +89,7 @@ def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip):
         progress = 0
         for confidence, vects in vectors.items():
             for vect in vects:
-                if core.config.globalVariables['path']:
+                if src.core.config.globalVariables['path']:
                     vect = vect.replace('/', '%2F')
                 loggerVector = vect
                 progress += 1

@@ -2,8 +2,8 @@ import json
 import re
 import sys
 
-from core.requester import requester
-from core.log import setup_logger
+from src.core.requester import requester
+from src.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
