@@ -1,10 +1,11 @@
 import json
 import random
 import re
+from pathlib import Path
 from urllib.parse import urlparse
 
-import core.config
-from core.config import xsschecker
+import xsstrike_reborn.core.config as config
+from xsstrike_reborn.core.config import xsschecker
 
 
 def converter(data, url=False):
@@ -238,16 +239,16 @@ def deJSON(data):
 
 
 def getVar(name):
-    return core.config.globalVariables[name]
+    return config.globalVariables[name]
 
 def updateVar(name, data, mode=None):
     if mode:
         if mode == 'append':
-            core.config.globalVariables[name].append(data)
+            config.globalVariables[name].append(data)
         elif mode == 'add':
-            core.config.globalVariables[name].add(data)
+            config.globalVariables[name].add(data)
     else:
-        core.config.globalVariables[name] = data
+        config.globalVariables[name] = data
 
 def isBadContext(position, non_executable_contexts):
     badContext = ''
@@ -274,3 +275,6 @@ def escaped(position, string):
             return True
     else:
         return False
+
+def get_project_root():
+    return Path(__file__).absolute().parent.parent

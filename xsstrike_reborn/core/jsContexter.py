@@ -1,7 +1,7 @@
 import re
 
-from core.config import xsschecker
-from core.utils import stripper
+from xsstrike_reborn.core.config import xsschecker
+from xsstrike_reborn.core.utils import stripper
 
 
 def jsContexter(script):

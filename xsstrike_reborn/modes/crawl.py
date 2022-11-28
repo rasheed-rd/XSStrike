@@ -1,14 +1,14 @@
 import copy
 import re
 
-import core.config
-from core.colors import green, end
-from core.config import xsschecker
-from core.filterChecker import filterChecker
-from core.generator import generator
-from core.htmlParser import htmlParser
-from core.requester import requester
-from core.log import setup_logger
+import xsstrike_reborn.core.config
+from xsstrike_reborn.core.colors import green, end
+from xsstrike_reborn.core.config import xsschecker
+from xsstrike_reborn.core.filterChecker import filterChecker
+from xsstrike_reborn.core.generator import generator
+from xsstrike_reborn.core.htmlParser import htmlParser
+from xsstrike_reborn.core.requester import requester
+from xsstrike_reborn.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -26,8 +26,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                     url = scheme + '://' + host + url
                 elif re.match(r'\w', url[0]):
                     url = scheme + '://' + host + '/' + url
-                if url not in core.config.globalVariables['checkedForms']:
-                    core.config.globalVariables['checkedForms'][url] = []
+                if url not in xsstrike_reborn.core.config.globalVariables['checkedForms']:
+                    xsstrike_reborn.core.config.globalVariables['checkedForms'][url] = []
                 method = each['method']
                 GET = True if method == 'get' else False
                 inputs = each['inputs']
@@ -35,8 +35,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                 for one in inputs:
                     paramData[one['name']] = one['value']
                     for paramName in paramData.keys():
-                        if paramName not in core.config.globalVariables['checkedForms'][url]:
-                            core.config.globalVariables['checkedForms'][url].append(paramName)
+                        if paramName not in xsstrike_reborn.core.config.globalVariables['checkedForms'][url]:
+                            xsstrike_reborn.core.config.globalVariables['checkedForms'][url].append(paramName)
                             paramsCopy = copy.deepcopy(paramData)
                             paramsCopy[paramName] = xsschecker
                             response = requester(

@@ -2,18 +2,18 @@ import copy
 import re
 from urllib.parse import urlparse, quote, unquote
 
-from core.checker import checker
-from core.colors import end, green, que
-import core.config
-from core.config import xsschecker, minEfficiency
-from core.dom import dom
-from core.filterChecker import filterChecker
-from core.generator import generator
-from core.htmlParser import htmlParser
-from core.requester import requester
-from core.utils import getUrl, getParams, getVar
-from core.wafDetector import wafDetector
-from core.log import setup_logger
+from xsstrike_reborn.core.checker import checker
+from xsstrike_reborn.core.colors import end, green, que
+import xsstrike_reborn.core.config
+from xsstrike_reborn.core.config import xsschecker, minEfficiency
+from xsstrike_reborn.core.dom import dom
+from xsstrike_reborn.core.filterChecker import filterChecker
+from xsstrike_reborn.core.generator import generator
+from xsstrike_reborn.core.htmlParser import htmlParser
+from xsstrike_reborn.core.requester import requester
+from xsstrike_reborn.core.utils import getUrl, getParams, getVar
+from xsstrike_reborn.core.wafDetector import wafDetector
+from xsstrike_reborn.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -89,7 +89,7 @@ def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip):
         progress = 0
         for confidence, vects in vectors.items():
             for vect in vects:
-                if core.config.globalVariables['path']:
+                if xsstrike_reborn.core.config.globalVariables['path']:
                     vect = vect.replace('/', '%2F')
                 loggerVector = vect
                 progress += 1

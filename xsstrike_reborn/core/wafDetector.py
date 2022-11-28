@@ -1,15 +1,17 @@
 import json
+import os.path
 import re
 import sys
 
-from core.requester import requester
-from core.log import setup_logger
+from xsstrike_reborn.core.requester import requester
+from xsstrike_reborn.core.log import setup_logger
+from xsstrike_reborn.core.utils import get_project_root
 
 logger = setup_logger(__name__)
 
 
 def wafDetector(url, params, headers, GET, delay, timeout):
-    with open(sys.path[0] + '/db/wafSignatures.json', 'r') as file:
+    with open(os.path.join(get_project_root(), 'db', 'wafSignatures.json'), 'r') as file:
         wafSignatures = json.load(file)
     # a payload which is noisy enough to provoke the WAF
     noise = '<script>alert("XSS")</script>'
