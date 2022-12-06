@@ -4,9 +4,9 @@ import time
 from urllib3.exceptions import ProtocolError
 import warnings
 
-import xsstrike_reborn.core.config as config
-from xsstrike_reborn.core.utils import converter, getVar
-from xsstrike_reborn.core.log import setup_logger
+import xsstrikesback.core.config as config
+from xsstrikesback.core.utils import converter, getVar
+from xsstrikesback.core.log import setup_logger
 
 logger = setup_logger(__name__)
 

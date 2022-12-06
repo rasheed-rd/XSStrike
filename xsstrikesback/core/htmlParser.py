@@ -1,7 +1,7 @@
 import re
 
-from xsstrike_reborn.core.config import badTags, xsschecker
-from xsstrike_reborn.core.utils import isBadContext, equalize, escaped, extractScripts
+from xsstrikesback.core.config import badTags, xsschecker
+from xsstrikesback.core.utils import isBadContext, equalize, escaped, extractScripts
 
 
 def htmlParser(response, encoding):

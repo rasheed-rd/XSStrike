@@ -4,8 +4,8 @@ from __future__ import print_function
 
 import os.path
 
-from xsstrike_reborn.core.colors import end, red, white, bad, info
-from xsstrike_reborn.core.utils import get_project_root
+from xsstrikesback.core.colors import end, red, white, bad, info
+from xsstrikesback.core.utils import get_project_root
 # Just a fancy ass banner
 print('''%s
 \tXSStrike %sv3.1.5
@@ -25,21 +25,21 @@ import json
 import argparse
 
 # ... and configurations core lib
-import xsstrike_reborn.core.config
-import xsstrike_reborn.core.log
+import xsstrikesback.core.config
+import xsstrikesback.core.log
 
 # Import everything else required from core lib
-from xsstrike_reborn.core.config import blindPayload
-from xsstrike_reborn.core.encoders import base64
-from xsstrike_reborn.core.photon import photon
-from xsstrike_reborn.core.prompt import prompt
-from xsstrike_reborn.core.updater import updater
-from xsstrike_reborn.core.utils import extractHeaders, reader, converter
+from xsstrikesback.core.config import blindPayload
+from xsstrikesback.core.encoders import base64
+from xsstrikesback.core.photon import photon
+from xsstrikesback.core.prompt import prompt
+from xsstrikesback.core.updater import updater
+from xsstrikesback.core.utils import extractHeaders, reader, converter
 
-from xsstrike_reborn.modes.bruteforcer import bruteforcer
-from xsstrike_reborn.modes.crawl import crawl
-from xsstrike_reborn.modes.scan import scan
-from xsstrike_reborn.modes.singleFuzz import singleFuzz
+from xsstrikesback.modes.bruteforcer import bruteforcer
+from xsstrikesback.modes.crawl import crawl
+from xsstrikesback.modes.scan import scan
+from xsstrikesback.modes.singleFuzz import singleFuzz
 
 
 
@@ -56,7 +56,7 @@ def main():
     parser.add_argument('--update', help='update',
                         dest='update', action='store_true')
     parser.add_argument('--timeout', help='timeout',
-                        dest='timeout', type=int, default=xsstrike_reborn.core.config.timeout)
+                        dest='timeout', type=int, default=xsstrikesback.core.config.timeout)
     parser.add_argument('--proxy', help='use prox(y|ies)',
                         dest='proxy', action='store_true')
     parser.add_argument('--crawl', help='crawl',
@@ -74,9 +74,9 @@ def main():
     parser.add_argument('--headers', help='add headers',
                         dest='add_headers', nargs='?', const=True)
     parser.add_argument('-t', '--threads', help='number of threads',
-                        dest='threadCount', type=int, default=xsstrike_reborn.core.config.threadCount)
+                        dest='threadCount', type=int, default=xsstrikesback.core.config.threadCount)
     parser.add_argument('-d', '--delay', help='delay between requests',
-                        dest='delay', type=int, default=xsstrike_reborn.core.config.delay)
+                        dest='delay', type=int, default=xsstrikesback.core.config.delay)
     parser.add_argument('--skip', help='don\'t ask to continue',
                         dest='skip', action='store_true')
     parser.add_argument('--skip-dom', help='skip dom checking',
@@ -84,12 +84,12 @@ def main():
     parser.add_argument('--blind', help='inject blind XSS payload while crawling',
                         dest='blindXSS', action='store_true')
     parser.add_argument('--console-log-level', help='Console logging level',
-                        dest='console_log_level', default=xsstrike_reborn.core.log.console_log_level,
-                        choices=xsstrike_reborn.core.log.log_config.keys())
+                        dest='console_log_level', default=xsstrikesback.core.log.console_log_level,
+                        choices=xsstrikesback.core.log.log_config.keys())
     parser.add_argument('--file-log-level', help='File logging level', dest='file_log_level',
-                        choices=xsstrike_reborn.core.log.log_config.keys(), default=None)
+                        choices=xsstrikesback.core.log.log_config.keys(), default=None)
     parser.add_argument('--log-file', help='Name of the file to log', dest='log_file',
-                        default=xsstrike_reborn.core.log.log_file)
+                        default=xsstrikesback.core.log.log_file)
     args = parser.parse_args()
 
     # Pull all parameter values of dict from argparse namespace into local variables of name == key
@@ -113,25 +113,25 @@ def main():
     skip = args.skip
     skipDOM = args.skipDOM
     blindXSS = args.blindXSS
-    xsstrike_reborn.core.log.console_log_level = args.console_log_level
-    xsstrike_reborn.core.log.file_log_level = args.file_log_level
-    xsstrike_reborn.core.log.log_file = args.log_file
+    xsstrikesback.core.log.console_log_level = args.console_log_level
+    xsstrikesback.core.log.file_log_level = args.file_log_level
+    xsstrikesback.core.log.log_file = args.log_file
 
-    logger = xsstrike_reborn.core.log.setup_logger()
+    logger = xsstrikesback.core.log.setup_logger()
 
-    xsstrike_reborn.core.config.globalVariables = vars(args)
+    xsstrikesback.core.config.globalVariables = vars(args)
 
     if type(args.add_headers) == bool:
         headers = extractHeaders(prompt())
     elif type(args.add_headers) == str:
         headers = extractHeaders(args.add_headers)
     else:
-        from xsstrike_reborn.core.config import headers
+        from xsstrikesback.core.config import headers
 
-    xsstrike_reborn.core.config.globalVariables['headers'] = headers
-    xsstrike_reborn.core.config.globalVariables['checkedScripts'] = set()
-    xsstrike_reborn.core.config.globalVariables['checkedForms'] = {}
-    xsstrike_reborn.core.config.globalVariables['definitions'] = json.loads('\n'.join(reader(os.path.join(get_project_root(), 'db', 'definitions.json'))))
+    xsstrikesback.core.config.globalVariables['headers'] = headers
+    xsstrikesback.core.config.globalVariables['checkedScripts'] = set()
+    xsstrikesback.core.config.globalVariables['checkedForms'] = {}
+    xsstrikesback.core.config.globalVariables['definitions'] = json.loads('\n'.join(reader(os.path.join(get_project_root(), 'db', 'definitions.json'))))
 
     if path:
         paramData = converter(target, target)
@@ -141,7 +141,7 @@ def main():
 
     if args_file:
         if args_file == 'default':
-            payloadList = xsstrike_reborn.core.config.payloads
+            payloadList = xsstrikesback.core.config.payloads
         else:
             payloadList = list(filter(None, reader(args_file)))
 
@@ -152,7 +152,7 @@ def main():
     encoding = base64 if encode and encode == 'base64' else False
 
     if not proxy:
-        xsstrike_reborn.core.config.proxies = {}
+        xsstrikesback.core.config.proxies = {}
 
     if update:  # if the user has supplied --update argument
         updater()

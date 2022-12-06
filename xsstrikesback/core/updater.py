@@ -2,9 +2,9 @@ import os
 import re
 from requests import get
 
-from xsstrike_reborn.core.config import changes
-from xsstrike_reborn.core.colors import que, info, end, green
-from xsstrike_reborn.core.log import setup_logger
+from xsstrikesback.core.config import changes
+from xsstrikesback.core.colors import que, info, end, green
+from xsstrikesback.core.log import setup_logger
 
 logger = setup_logger(__name__)
 

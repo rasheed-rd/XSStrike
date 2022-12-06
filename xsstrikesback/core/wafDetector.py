@@ -3,9 +3,9 @@ import os.path
 import re
 import sys
 
-from xsstrike_reborn.core.requester import requester
-from xsstrike_reborn.core.log import setup_logger
-from xsstrike_reborn.core.utils import get_project_root
+from xsstrikesback.core.requester import requester
+from xsstrikesback.core.log import setup_logger
+from xsstrikesback.core.utils import get_project_root
 
 logger = setup_logger(__name__)
 

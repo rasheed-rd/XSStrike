@@ -11,11 +11,11 @@ repository = "https://github.com/s0md3v/XSStrike"
 keywords = ["xsstrike", "cross site scripting", "security"]
 classifiers = ["Topic :: Security"]
 packages = [
-    { include = "xsstrike_reborn" },
+    { include = "xsstrikesback" },
 ]
 
 [tool.poetry.scripts]
-xsstrike = "xsstrike_reborn.xsstrike:main"
+xsstrike = "xsstrikesback.xsstrike:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"

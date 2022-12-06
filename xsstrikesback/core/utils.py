@@ -4,8 +4,8 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
-import xsstrike_reborn.core.config as config
-from xsstrike_reborn.core.config import xsschecker
+import xsstrikesback.core.config as config
+from xsstrikesback.core.config import xsschecker
 
 
 def converter(data, url=False):
