@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "xsstrike"
+version = "3.2.0"
+description = """
+XSStrike is a Cross Site Scripting detection suite equipped with four hand written parsers, an intelligent payload generator, a powerful fuzzing engine and an incredibly fast crawler. Instead of injecting payloads and checking it works like all the other tools do, XSStrike analyses the response with multiple parsers and then crafts payloads that are guaranteed to work by context analysis integrated with a fuzzing engine."""
+license = "GNU GPLv3"
+authors = ["Somdev Sangwan <s0md3v@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/rasheed-rd/XSStrike"
+repository = "https://github.com/rasheed-rd/XSStrike"
+keywords = ["xsstrike", "cross site scripting", "security"]
+classifiers = ["Topic :: Security"]
+packages = [
+    { include = "xsstrike" },
+]
+
+[tool.poetry.scripts]
+xsstrike = "xsstrike.xsstrikesback:main"
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.11"
+tld = "*"
+fuzzywuzzy = "*"
+requests = "*"
+
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+pytest = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
