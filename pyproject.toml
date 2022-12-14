@@ -23,6 +23,10 @@ tld = "*"
 fuzzywuzzy = "*"
 requests = "*"
 
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+pytest = "*"
+
 
 [build-system]
 requires = ["poetry-core"]
