@@ -1,7 +1,7 @@
 import re
 
-from xsstrikesback.core.config import badTags, xsschecker
-from xsstrikesback.core.utils import isBadContext, equalize, escaped, extractScripts
+from xsstrike.core.config import badTags, xsschecker
+from xsstrike.core.utils import isBadContext, equalize, escaped, extractScripts
 
 
 def htmlParser(response, encoding):

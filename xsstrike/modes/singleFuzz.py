@@ -1,13 +1,13 @@
 import copy
 from urllib.parse import urlparse
 
-from xsstrikesback.core.colors import green, end
-from xsstrikesback.core.config import xsschecker
-from xsstrikesback.core.fuzzer import fuzzer
-from xsstrikesback.core.requester import requester
-from xsstrikesback.core.utils import getUrl, getParams
-from xsstrikesback.core.wafDetector import wafDetector
-from xsstrikesback.core.log import setup_logger
+from xsstrike.core.colors import green, end
+from xsstrike.core.config import xsschecker
+from xsstrike.core.fuzzer import fuzzer
+from xsstrike.core.requester import requester
+from xsstrike.core.utils import getUrl, getParams
+from xsstrike.core.wafDetector import wafDetector
+from xsstrike.core.log import setup_logger
 
 logger = setup_logger(__name__)
 

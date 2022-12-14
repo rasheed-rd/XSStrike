@@ -1,14 +1,14 @@
 import copy
 import re
 
-import xsstrikesback.core.config
-from xsstrikesback.core.colors import green, end
-from xsstrikesback.core.config import xsschecker
-from xsstrikesback.core.filterChecker import filterChecker
-from xsstrikesback.core.generator import generator
-from xsstrikesback.core.htmlParser import htmlParser
-from xsstrikesback.core.requester import requester
-from xsstrikesback.core.log import setup_logger
+import xsstrike.core.config
+from xsstrike.core.colors import green, end
+from xsstrike.core.config import xsschecker
+from xsstrike.core.filterChecker import filterChecker
+from xsstrike.core.generator import generator
+from xsstrike.core.htmlParser import htmlParser
+from xsstrike.core.requester import requester
+from xsstrike.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -26,8 +26,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                     url = scheme + '://' + host + url
                 elif re.match(r'\w', url[0]):
                     url = scheme + '://' + host + '/' + url
-                if url not in xsstrikesback.core.config.globalVariables['checkedForms']:
-                    xsstrikesback.core.config.globalVariables['checkedForms'][url] = []
+                if url not in xsstrike.core.config.globalVariables['checkedForms']:
+                    xsstrike.core.config.globalVariables['checkedForms'][url] = []
                 method = each['method']
                 GET = True if method == 'get' else False
                 inputs = each['inputs']
@@ -35,8 +35,8 @@ def crawl(scheme, host, main_url, form, blindXSS, blindPayload, headers, delay, 
                 for one in inputs:
                     paramData[one['name']] = one['value']
                     for paramName in paramData.keys():
-                        if paramName not in xsstrikesback.core.config.globalVariables['checkedForms'][url]:
-                            xsstrikesback.core.config.globalVariables['checkedForms'][url].append(paramName)
+                        if paramName not in xsstrike.core.config.globalVariables['checkedForms'][url]:
+                            xsstrike.core.config.globalVariables['checkedForms'][url].append(paramName)
                             paramsCopy = copy.deepcopy(paramData)
                             paramsCopy[paramName] = xsschecker
                             response = requester(

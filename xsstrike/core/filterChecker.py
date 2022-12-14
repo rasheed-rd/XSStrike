@@ -1,4 +1,4 @@
-from xsstrikesback.core.checker import checker
+from xsstrike.core.checker import checker
 
 
 def filterChecker(url, params, headers, GET, delay, occurences, timeout, encoding):

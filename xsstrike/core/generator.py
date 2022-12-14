@@ -1,6 +1,6 @@
-from xsstrikesback.core.config import xsschecker, badTags, fillings, eFillings, lFillings, jFillings, eventHandlers, tags, functions
-from xsstrikesback.core.jsContexter import jsContexter
-from xsstrikesback.core.utils import randomUpper as r, genGen, extractScripts
+from xsstrike.core.config import xsschecker, badTags, fillings, eFillings, lFillings, jFillings, eventHandlers, tags, functions
+from xsstrike.core.jsContexter import jsContexter
+from xsstrike.core.utils import randomUpper as r, genGen, extractScripts
 
 
 def generator(occurences, response):

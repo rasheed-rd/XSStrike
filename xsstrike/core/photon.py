@@ -2,12 +2,12 @@ import re
 import concurrent.futures
 from urllib.parse import urlparse
 
-from xsstrikesback.core.dom import dom
-from xsstrikesback.core.log import setup_logger
-from xsstrikesback.core.utils import getUrl, getParams
-from xsstrikesback.core.requester import requester
-from xsstrikesback.core.zetanize import zetanize
-from xsstrikesback.plugins.retireJs import retireJs
+from xsstrike.core.dom import dom
+from xsstrike.core.log import setup_logger
+from xsstrike.core.utils import getUrl, getParams
+from xsstrike.core.requester import requester
+from xsstrike.core.zetanize import zetanize
+from xsstrike.plugins.retireJs import retireJs
 
 logger = setup_logger(__name__)
 

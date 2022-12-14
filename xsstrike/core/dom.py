@@ -1,6 +1,6 @@
 import re
 
-from xsstrikesback.core.colors import end, red, yellow
+from xsstrike.core.colors import end, red, yellow
 
 if len(end) < 1:
     end = red = yellow = '*'

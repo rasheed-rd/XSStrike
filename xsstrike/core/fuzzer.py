@@ -3,11 +3,11 @@ from random import randint
 from time import sleep
 from urllib.parse import unquote
 
-from xsstrikesback.core.colors import end, red, green, yellow
-from xsstrikesback.core.config import fuzzes, xsschecker
-from xsstrikesback.core.requester import requester
-from xsstrikesback.core.utils import replaceValue, counter
-from xsstrikesback.core.log import setup_logger
+from xsstrike.core.colors import end, red, green, yellow
+from xsstrike.core.config import fuzzes, xsschecker
+from xsstrike.core.requester import requester
+from xsstrike.core.utils import replaceValue, counter
+from xsstrike.core.log import setup_logger
 
 logger = setup_logger(__name__)
 

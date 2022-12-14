@@ -1,9 +1,9 @@
 import os
 import tempfile
 
-from xsstrikesback.core.config import defaultEditor
-from xsstrikesback.core.colors import white, yellow
-from xsstrikesback.core.log import setup_logger
+from xsstrike.core.config import defaultEditor
+from xsstrike.core.colors import white, yellow
+from xsstrike.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
