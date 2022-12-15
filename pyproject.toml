@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xsstrike"
-version = "3.2.0"
+version = "3.2.1"
 description = """
 XSStrike is a Cross Site Scripting detection suite equipped with four hand written parsers, an intelligent payload generator, a powerful fuzzing engine and an incredibly fast crawler. Instead of injecting payloads and checking it works like all the other tools do, XSStrike analyses the response with multiple parsers and then crafts payloads that are guaranteed to work by context analysis integrated with a fuzzing engine."""
 license = "GNU GPLv3"
