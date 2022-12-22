@@ -17,8 +17,14 @@ from xsstrike.core.log import setup_logger
 
 logger = setup_logger(__name__)
 
+def display_payload(loggerVector, bestEfficiency, confidence):
+    logger.red_line()
+    logger.good('Payload: %s' % loggerVector)
+    logger.info('Efficiency: %i' % bestEfficiency)
+    logger.info('Confidence: %i' % confidence)
 
-def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip):
+
+def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip, payload_count):
     GET, POST = (False, True) if paramData else (True, False)
     # If the user hasn't supplied the root url with http(s), we will handle it
     if not target.startswith('http'):
@@ -89,6 +95,9 @@ def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip):
         progress = 0
         for confidence, vects in vectors.items():
             for vect in vects:
+                if payload_count and progress == payload_count:
+                    break
+
                 if xsstrike.core.config.globalVariables['path']:
                     vect = vect.replace('/', '%2F')
                 loggerVector = vect
@@ -103,18 +112,12 @@ def scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip):
                         efficiencies.append(0)
                 bestEfficiency = max(efficiencies)
                 if bestEfficiency == 100 or (vect[0] == '\\' and bestEfficiency >= 95):
-                    logger.red_line()
-                    logger.good('Payload: %s' % loggerVector)
-                    logger.info('Efficiency: %i' % bestEfficiency)
-                    logger.info('Confidence: %i' % confidence)
-                    if not skip:
+                    display_payload(loggerVector, bestEfficiency, confidence)
+                    if not skip and not payload_count:
                         choice = input(
                             '%s Would you like to continue scanning? [y/N] ' % que).lower()
                         if choice != 'y':
                             quit()
                 elif bestEfficiency > minEfficiency:
-                    logger.red_line()
-                    logger.good('Payload: %s' % loggerVector)
-                    logger.info('Efficiency: %i' % bestEfficiency)
-                    logger.info('Confidence: %i' % confidence)
+                    display_payload(loggerVector, bestEfficiency, confidence)
         logger.no_format('')
