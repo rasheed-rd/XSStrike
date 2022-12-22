@@ -90,6 +90,8 @@ def main():
                         choices=xsstrike.core.log.log_config.keys(), default=None)
     parser.add_argument('--log-file', help='Name of the file to log', dest='log_file',
                         default=xsstrike.core.log.log_file)
+    parser.add_argument('-n', help='Number of generated payloads to print. Default is efficiency based.',
+                        dest='payload_count', type=int)
     args = parser.parse_args()
 
     # Pull all parameter values of dict from argparse namespace into local variables of name == key
@@ -113,6 +115,7 @@ def main():
     skip = args.skip
     skipDOM = args.skipDOM
     blindXSS = args.blindXSS
+    payload_count = args.payload_count
     xsstrike.core.log.console_log_level = args.console_log_level
     xsstrike.core.log.file_log_level = args.file_log_level
     xsstrike.core.log.log_file = args.log_file
@@ -168,7 +171,7 @@ def main():
         if args_file:
             bruteforcer(target, paramData, payloadList, encoding, headers, delay, timeout)
         else:
-            scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip)
+            scan(target, paramData, encoding, headers, delay, timeout, skipDOM, skip, payload_count)
     else:
         if target:
             seedList.append(target)
